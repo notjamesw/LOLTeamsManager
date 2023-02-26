@@ -37,4 +37,20 @@ public class League {
     public void removeTeam(Team team) {
         teams.remove(team);
     }
+
+    // EFFECTS: returns true if there are no teams in the league and false if otherwise
+    public boolean isEmpty() {
+        return teams.isEmpty();
+    }
+
+    // REQUIRES: teams is not empty and 0 <= index <= teams.size()
+    // EFFECTS: returns the team at the given index in the league
+    public Team teamAtIndex(int index) {
+        return teams.get(index);
+    }
+
+    // EFFECTS: returns the number of teams in the league
+    public int size() {
+        return teams.size();
+    }
 }
