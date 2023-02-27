@@ -33,6 +33,11 @@ public class TeamTest {
         assertEquals("LCS", team1.getLeague());
         assertEquals(0, team1.getStarters().size());
         assertEquals(0, team1.getSubs().size());
+
+        team1.setLeague("LEC");
+        assertEquals("LEC", team1.getLeague());
+        team1.setTeamName("100T");
+        assertEquals("100T", team1.getTeamName());
     }
 
     @Test

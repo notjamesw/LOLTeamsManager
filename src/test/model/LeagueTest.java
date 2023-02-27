@@ -23,6 +23,8 @@ public class LeagueTest {
     public void testConstructor() {
         assertEquals("LCS", league1.getName());
         assertTrue(league1.isEmpty());
+        league1.setName("LEC");
+        assertEquals("LEC", league1.getName());
     }
 
     @Test

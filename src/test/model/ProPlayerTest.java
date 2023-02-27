@@ -24,6 +24,14 @@ public class ProPlayerTest {
         assertEquals("", pro1.getDescription());
         assertEquals(0, pro1.getWins());
         assertEquals(0, pro1.getLoses());
+
+        pro1.setKda(1.1);
+        assertEquals(1.1, pro1.getKda());
+        pro1.setCsm(10.1);
+        assertEquals(10.1, pro1.getCsm());
+        pro1.setIgn("DoubleLift");
+        pro1.setRole("ADC");
+        pro1.setDescription("NA GOAT");
     }
 
     @Test

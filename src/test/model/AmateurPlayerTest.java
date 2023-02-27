@@ -21,6 +21,9 @@ public class AmateurPlayerTest {
         assertEquals("", ap1.getDescription());
         assertEquals(0, ap1.getWins());
         assertEquals(0, ap1.getLoses());
+
+        ap1.setRank("Silver");
+        assertEquals("Silver", ap1.getRank());
     }
 
     @Test
