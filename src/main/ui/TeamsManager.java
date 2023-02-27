@@ -249,7 +249,7 @@ public class TeamsManager {
         System.out.println(league.getName());
         if (league.isEmpty()) {
             System.out.println("\nLeague has no teams yet.");
-            System.out.println("To create a team and add it to the " + league.getName() + " enter 'c'");
+            System.out.println("To create a team and add it to the " + league.getName() + " enter 'a'");
         } else {
             int i = 0;
             System.out.println("\nTo select a team and view its information, enter its index.");
@@ -705,7 +705,7 @@ public class TeamsManager {
                 quit = true;
             } else if (command.equals("a")) {
                 System.out.println("Enter new player description:");
-                newInfo = input.nextLine();
+                newInfo = input.next();
                 player.setDescription(newInfo);
             } else if (command.equals("b")) {
                 changeIgn(player);
@@ -723,7 +723,7 @@ public class TeamsManager {
     // EFFECTS: changes player's ign to user input
     public void changeIgn(Player player) {
         System.out.println("Enter new player ign:");
-        String ign = input.nextLine();
+        String ign = input.next();
         player.setIgn(ign);
     }
 
@@ -731,7 +731,7 @@ public class TeamsManager {
     // EFFECTS: changes player's role to user input
     public void changeRole(Player player) {
         System.out.println("Enter new player role:");
-        String role = input.nextLine();
+        String role = input.next();
         player.setRole(role);
     }
 
@@ -756,7 +756,7 @@ public class TeamsManager {
         int newStat;
 
         while (!quit) {
-            displayDescriptionMenu(player);
+            displayStatsMenu(player);
             command = input.next();
             if (command.equals("q")) {
                 quit = true;
@@ -773,6 +773,19 @@ public class TeamsManager {
             } else {
                 System.out.println("Please enter a valid command.");
             }
+        }
+    }
+
+    // EFFECTS: display stats menu
+    public void displayStatsMenu(Player player) {
+        displayTitle();
+        System.out.println("\nOptions:");
+        System.out.println("        q. quit and return to Player Menu");
+        System.out.println("        a. update wins");
+        System.out.println("        b. update loses");
+        if (player instanceof ProPlayer) {
+            System.out.println("        c. update csm");
+            System.out.println("        d. update KDA");
         }
     }
 
