@@ -3,9 +3,9 @@ package ui;
 import model.*;
 
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.Scanner;
 
+// Represents an LOL team manager application
 public class TeamsManager {
     private ArrayList<Team> allTeams;     // list of all teams
     private ArrayList<League> allLeagues; // list of all leagues
@@ -48,7 +48,7 @@ public class TeamsManager {
         System.out.println("\nThank you for using LOL Teams Manager.");
     }
 
-    // displays the title of the application
+    // EFFECTS: displays the title of the application
     public void displayTitle() {
         System.out.println("\nLOL TEAMS MANAGER");
         System.out.println("===========================");
@@ -92,6 +92,8 @@ public class TeamsManager {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: allows teams with no league to access the team menu
     public void accessTeamMenu(Team team) {
         boolean noLeague = true;
         for (League league : allLeagues) {
@@ -185,7 +187,7 @@ public class TeamsManager {
     }
 
     // REQUIRES: league is a league in list of allLeagues
-    // MODIFIES: this
+    // MODIFIES: this, league
     // EFFECTS: processes user input and gives user the option to add a new team to the
     // league, or select a team to view the team.
     public void leagueMenu(League league) {
@@ -198,18 +200,46 @@ public class TeamsManager {
             command = input.next();
             if (command.equals("q")) {
                 quit = true;
-            } else if (command.equals("c")) {
+            } else if (command.equals("a")) {
                 createTeamMenu(league);
+            } else if (command.equals("b")) {
+                renameLeague(league);
+            } else if (command.equals("c")) {
+                if (removeLeague(league)) {
+                    quit = true;
+                }
             } else if (!league.isEmpty()) {
                 index = Integer.parseInt(command);
                 if (index >= 0 && index < league.size()) {
                     teamMenu(league.teamAtIndex(index), league);
-                } else {
-                    System.out.println("Please select a valid team.");
                 }
-            } else {
-                System.out.println("Please enter a valid command.");
             }
+        }
+    }
+
+    // MODIFIES: this, league
+    // EFFECTS: rename the given league
+    public void renameLeague(League league) {
+        System.out.println("Enter a new name for the league:");
+        String name = input.next();
+        league.setName(name);
+    }
+
+    // MODIFIES: this, league
+    // EFFECTS: removes the league from allLeagues
+    public boolean removeLeague(League league) {
+        displayTitle();
+        System.out.println("REMOVE LEAGUE");
+        String teamName = league.getName();
+        System.out.println(league.getName() + " will be removed.");
+        System.out.println("To confirm, enter 'y'.");
+        String confirm = input.next();
+        if (confirm.equals("y")) {
+            allLeagues.remove(league);
+            return true;
+        } else {
+            System.out.println(teamName + " has not been disbanded.");
+            return false;
         }
     }
 
@@ -233,10 +263,12 @@ public class TeamsManager {
         }
         System.out.println("\nOptions:");
         System.out.println("        q. quit and return to Leagues Menu");
-        System.out.println("        c. create and add team to league");
+        System.out.println("        a. create and add team to league");
+        System.out.println("        b. rename the league");
+        System.out.println("        c. remove the league");
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, league
     // EFFECTS: creates a new team with a user inputted name and adds it to a given league
     public void createTeamMenu(League league) {
         displayTitle();
@@ -259,8 +291,9 @@ public class TeamsManager {
         allTeams.add(team);
     }
 
-    // MODIFIES: this
-    // EFFECTS: processes user input and gives user options to manage starters or subs on a team
+    // MODIFIES: this, team, league
+    // EFFECTS: processes user input and gives user options to manage starters or subs on a team, or manage team
+    // information.
     public void teamMenu(Team team, League league) {
         boolean quit = false;
         String command;
@@ -275,13 +308,9 @@ public class TeamsManager {
             } else if (command.equals("b")) {
                 subsMenu(team);
             } else if (command.equals("c")) {
-                renameTeam(team);
-            } else if (command.equals("d")) {
-                if (deleteTeam(team, league)) {
+                if (manageTeam(team, league)) {
                     quit = true;
                 }
-            } else if (command.equals("e")) {
-                clearTeam(team);
             } else {
                 System.out.println("Please enter a valid command.");
             }
@@ -301,11 +330,73 @@ public class TeamsManager {
         System.out.println("        q. quit and return to League Menu");
         System.out.println("        a. manage starters");
         System.out.println("        b. manage subs");
-        System.out.println("        c. rename team");
-        System.out.println("        d. disband team");
-        System.out.println("        e. release all players");
+        System.out.println("        c. manage team");
     }
 
+    // MODIFIES: this, team, league
+    // EFFECTS: processes user input and gives user options to rename team, delete team, release all players from the
+    // team, or change the team's current league.
+    public boolean manageTeam(Team team, League league) {
+        boolean quit = false;
+        String command;
+
+        while (!quit) {
+            displayManageTeam();
+            command = input.next();
+            if (command.equals("q")) {
+                quit = true;
+            } else if (command.equals("a")) {
+                renameTeam(team);
+            } else if (command.equals("b")) {
+                if (deleteTeam(team, league)) {
+                    return true;
+                }
+            } else if (command.equals("c")) {
+                clearTeam(team);
+            } else if (command.equals("d")) {
+                changeTeamLeague(team, league);
+            } else {
+                System.out.println("Please enter a valid command.");
+            }
+        }
+        return false;
+    }
+
+    // EFFECTS: displays manage team menu
+    public void displayManageTeam() {
+        displayTitle();
+        System.out.println("MANAGE TEAM MENU");
+        System.out.println("\nOptions:");
+        System.out.println("        q. quit and return to Team Menu");
+        System.out.println("        a. rebrand team");
+        System.out.println("        b. disband team");
+        System.out.println("        c. release all players from the team");
+        System.out.println("        d. add/change team's league");
+    }
+
+    // MODIFIES: this, team, league
+    // EFFECTS: changes team's league to user inputted league if it's found in allLeagues.
+    public void changeTeamLeague(Team team, League league) {
+        boolean foundLeague = false;
+        if (league != null) {
+            league.removeTeam(team);
+        }
+        System.out.println("Enter a new league for the team: ");
+        String newLeague = input.next();
+        for (League leg : allLeagues) {
+            if (leg.getName().equals(newLeague)) {
+                foundLeague = true;
+                leg.addTeam(team);
+                team.setLeague(leg.getName());
+            }
+        }
+        if (!foundLeague) {
+            System.out.println("New league not found.");
+        }
+    }
+
+    // MODIFIES: this, team
+    // EFFECTS: processes user input and gives user options to manage starters.
     public void startersMenu(Team team) {
         boolean quit = false;
         String command;
@@ -333,6 +424,7 @@ public class TeamsManager {
         }
     }
 
+    // EFFECTS: displays starters menu
     public void displayStarters(Team team) {
         displayTitle();
         System.out.println("MANAGE STARTERS");
@@ -352,6 +444,8 @@ public class TeamsManager {
         System.out.println("        b. remove a starter");
     }
 
+    // MODIFIES: team
+    // EFFECTS: adds a new starter to the to team if starting roster is not full.
     public void addStarter(Team team) {
         System.out.println("ADD STARTER");
         if (team.startersIsFull()) {
@@ -365,6 +459,8 @@ public class TeamsManager {
         }
     }
 
+    // MODIFIES: team
+    // EFFECTS: removes a starter from the team if starters is not empty
     public void removeStarter(Team team) {
         if (team.startersIsEmpty()) {
             System.out.println("There are no starters to remove.");
@@ -379,6 +475,8 @@ public class TeamsManager {
         }
     }
 
+    // MODIFIES: this, team
+    // EFFECTS: processes user input and gives user options to manage subs.
     public void subsMenu(Team team) {
         boolean quit = false;
         String command;
@@ -406,6 +504,7 @@ public class TeamsManager {
         }
     }
 
+    // EFFECTS: displays subs menu
     public void displaySubs(Team team) {
         displayTitle();
         System.out.println("MANAGE SUBS");
@@ -425,12 +524,16 @@ public class TeamsManager {
         System.out.println("        b. remove a sub");
     }
 
+    // MODIFIES: team
+    // EFFECTS: adds a new sub to the team
     public void addSub(Team team) {
         System.out.println("ADD SUB");
         team.addSub(playerCreation(team));
         System.out.println("Sub has been added.");
     }
 
+    // MODIFIES: team
+    // EFFECTS: removes a sub from the team if subs is not empty.
     public void removeSub(Team team) {
         if (team.subsIsEmpty()) {
             System.out.println("There are no subs to remove.");
@@ -445,7 +548,7 @@ public class TeamsManager {
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, team
     // EFFECTS: renames team to a new user inputted name
     public void renameTeam(Team team) {
         displayTitle();
@@ -457,7 +560,7 @@ public class TeamsManager {
         System.out.println(oldName + " has been rebranded to " + team.getTeamName());
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, team, league
     // EFFECTS: after confirmation, clears all players from the team and removes the team from the league
     // and list of allTeams
     public boolean deleteTeam(Team team, League league) {
@@ -481,7 +584,7 @@ public class TeamsManager {
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: this, team
     // EFFECTS: after confirmation, clears all players from the team
     public void clearTeam(Team team) {
         displayTitle();
@@ -520,6 +623,7 @@ public class TeamsManager {
         return player;
     }
 
+    // EFFECTS: display player creation menu
     public void displayPlayerCreation() {
         displayTitle();
         System.out.println("PLAYER CREATION");
@@ -528,6 +632,8 @@ public class TeamsManager {
         System.out.println("        b. create an Amateur player");
     }
 
+    // MODIFIES: this, player
+    // EFFECTS: processes user input and gives user options to manage player information and stats.
     public void playerMenu(Player player) {
         boolean quit = false;
         String command;
@@ -539,15 +645,16 @@ public class TeamsManager {
             if (command.equals("q")) {
                 quit = true;
             } else if (command.equals("a")) {
-                //editDescription(player);
+                editDescription(player);
             } else if (command.equals("b")) {
-                //editStats(player);
+                editStats(player);
             } else {
                 System.out.println("Please enter a valid command.");
             }
         }
     }
 
+    // EFFECTS: displays player information
     public void displayPlayerInformation(Player player) {
         displayTitle();
         System.out.println(player.getIgn());
@@ -567,11 +674,12 @@ public class TeamsManager {
         if (player.getWinRate() == -1) {
             System.out.println("Cannot calculate win rate, no games played.");
         } else {
-            System.out.println("Win rate: " + player.getWinRate());
+            System.out.printf("Win rate: %.2f", player.getWinRate());
         }
-        System.out.println("Additional information: " + player.getDescription());
+        System.out.println("\nAdditional information: " + player.getDescription());
     }
 
+    // EFFECTS: display player options menu
     public void displayPlayerOptions(Player player) {
         System.out.println("\nOptions:");
         System.out.println("        q. quit and return to Roster Menu");
@@ -582,8 +690,108 @@ public class TeamsManager {
         }
     }
 
+    // MODIFIES: this, player
+    // EFFECTS: processes user input and gives user option to change player description, ign, role, or rank
+    // if the player is an AmateurPlayer.
+    public void editDescription(Player player) {
+        boolean quit = false;
+        String command;
+        String newInfo;
 
-    //TODO: player viewing page (stats)
-    //TODO: adding option to remove players, teams, etc.
+        while (!quit) {
+            displayDescriptionMenu(player);
+            command = input.next();
+            if (command.equals("q")) {
+                quit = true;
+            } else if (command.equals("a")) {
+                System.out.println("Enter new player description:");
+                newInfo = input.nextLine();
+                player.setDescription(newInfo);
+            } else if (command.equals("b")) {
+                changeIgn(player);
+            } else if (command.equals("c")) {
+                changeRole(player);
+            } else if (player instanceof AmateurPlayer && command.equals("d")) {
+                System.out.println("Enter new player rank:");
+                newInfo = input.next();
+                ((AmateurPlayer) player).setRank(newInfo);
+            }
+        }
+    }
+
+    // MODIFIES: this, player
+    // EFFECTS: changes player's ign to user input
+    public void changeIgn(Player player) {
+        System.out.println("Enter new player ign:");
+        String ign = input.nextLine();
+        player.setIgn(ign);
+    }
+
+    // MODIFIES: this, player
+    // EFFECTS: changes player's role to user input
+    public void changeRole(Player player) {
+        System.out.println("Enter new player role:");
+        String role = input.nextLine();
+        player.setRole(role);
+    }
+
+    // EFFECTS: displays description menu
+    public void displayDescriptionMenu(Player player) {
+        displayTitle();
+        System.out.println("\nOptions:");
+        System.out.println("        q. quit and return to Player Menu");
+        System.out.println("        a. edit player description");
+        System.out.println("        b. change ign");
+        System.out.println("        c. change role");
+        if (player instanceof AmateurPlayer) {
+            System.out.println("        d. edit player rank");
+        }
+    }
+
+    // MODIFIES: this, player
+    // EFFECTS: processes user input and gives user option to change player stats
+    public void editStats(Player player) {
+        boolean quit = false;
+        String command;
+        int newStat;
+
+        while (!quit) {
+            displayDescriptionMenu(player);
+            command = input.next();
+            if (command.equals("q")) {
+                quit = true;
+            } else if (command.equals("a")) {
+                System.out.println("Enter updated wins:");
+                newStat = input.nextInt();
+                player.setWins(newStat);
+            } else if (command.equals("b")) {
+                System.out.println("Enter updated loses:");
+                newStat = input.nextInt();
+                player.setLoses(newStat);
+            } else if (player instanceof ProPlayer) {
+                proStatOptions((ProPlayer) player, command);
+            } else {
+                System.out.println("Please enter a valid command.");
+            }
+        }
+    }
+
+    // MODIFIES: this, player
+    // EFFECTS: processes user input and gives user option to change pro player specific stats.
+    public void proStatOptions(ProPlayer player, String command) {
+        double csm;
+        double kda;
+        if (command.equals("c")) {
+            System.out.println("Enter updated CS per Min: ");
+            csm = input.nextDouble();
+            player.setCsm(csm);
+        } else if (command.equals("d")) {
+            System.out.println("Enter updated KDA: ");
+            kda = input.nextDouble();
+            player.setKda(kda);
+        } else {
+            System.out.println("Please enter a valid command.");
+        }
+    }
 
 }

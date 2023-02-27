@@ -6,7 +6,7 @@ public class ProPlayer extends Player {
     private double csm;
     private String region;
 
-    // REQUIRES: role is a valid in-game role, region is a real in-game region.
+    // REQUIRES: role is a valid in-game role, region is a real in-game region, where player is native to.
     // EFFECTS: constructs a pro-player with the same fields as its superclass (player) but also with their region,
     // kda of 0, and csm of 0.
     public ProPlayer(String ign, String role, String region) {
@@ -34,9 +34,5 @@ public class ProPlayer extends Player {
 
     public void setCsm(double csm) {
         this.csm = csm;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
     }
 }
