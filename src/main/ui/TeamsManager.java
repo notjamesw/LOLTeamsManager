@@ -18,7 +18,7 @@ public class TeamsManager {
 
     // MODIFIES: this
     // EFFECTS: initializes lists of all teams and leagues
-    public void init() {
+    private void init() {
         this.allTeams = new ArrayList<>();
         this.allLeagues = new ArrayList<>();
         this.input = new Scanner(System.in);
@@ -26,7 +26,7 @@ public class TeamsManager {
 
     // MODIFIES: this
     // EFFECTS: processes user input and determines whether to quit app
-    public void runApp() {
+    private void runApp() {
         boolean quit = false;
         String command;
 
@@ -49,13 +49,13 @@ public class TeamsManager {
     }
 
     // EFFECTS: displays the title of the application
-    public void displayTitle() {
+    private void displayTitle() {
         System.out.println("\nLOL TEAMS MANAGER");
         System.out.println("===========================");
     }
 
     // EFFECTS: display main menu with options to user
-    public void displayMainMenu() {
+    private void displayMainMenu() {
         displayTitle();
         System.out.println("MAIN MENU");
         System.out.println("\nOptions:");
@@ -67,7 +67,7 @@ public class TeamsManager {
     // MODIFIES: this
     // EFFECTS: processes user input, gives users the option to select a team from list of allTeams or create a new
     // team. 
-    public void allTeamsMenu() {
+    private void allTeamsMenu() {
         boolean quit = false;
         String command;
         int index;
@@ -94,7 +94,7 @@ public class TeamsManager {
 
     // MODIFIES: this
     // EFFECTS: allows teams with no league to access the team menu
-    public void accessTeamMenu(Team team) {
+    private void accessTeamMenu(Team team) {
         boolean noLeague = true;
         for (League league : allLeagues) {
             if (league.getName().equals(team.getLeague())) {
@@ -108,7 +108,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: display a list of all teams
-    public void displayAllTeamsMenu() {
+    private void displayAllTeamsMenu() {
         displayTitle();
         System.out.println("ALL TEAMS");
         if (allTeams.isEmpty()) {
@@ -130,7 +130,7 @@ public class TeamsManager {
     // MODIFIES: this
     // EFFECTS: processes user input, gives users the option to add a new league or select a league
     // to view the teams in the league
-    public void allLeaguesMenu() {
+    private void allLeaguesMenu() {
         boolean quit = false;
         String command;
         int index;
@@ -156,7 +156,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: displays menu with all the leagues and options to the user
-    public void displayAllLeaguesMenu() {
+    private void displayAllLeaguesMenu() {
         displayTitle();
         System.out.println("LEAGUES");
         if (allLeagues.isEmpty()) {
@@ -177,7 +177,7 @@ public class TeamsManager {
 
     // MODIFIES: this
     // EFFECTS: creates and adds a new league with a name and no teams to the list of all leagues
-    public void createLeagueMenu() {
+    private void createLeagueMenu() {
         displayTitle();
         System.out.println("LEAGUE CREATION");
         System.out.println("\nEnter a name for the new league:");
@@ -190,7 +190,7 @@ public class TeamsManager {
     // MODIFIES: this, league
     // EFFECTS: processes user input and gives user the option to add a new team to the
     // league, or select a team to view the team.
-    public void leagueMenu(League league) {
+    private void leagueMenu(League league) {
         boolean quit = false;
         String command;
         int index;
@@ -219,7 +219,7 @@ public class TeamsManager {
 
     // MODIFIES: this, league
     // EFFECTS: rename the given league
-    public void renameLeague(League league) {
+    private void renameLeague(League league) {
         System.out.println("Enter a new name for the league:");
         String name = input.next();
         league.setName(name);
@@ -227,7 +227,7 @@ public class TeamsManager {
 
     // MODIFIES: this, league
     // EFFECTS: removes the league from allLeagues
-    public boolean removeLeague(League league) {
+    private boolean removeLeague(League league) {
         displayTitle();
         System.out.println("REMOVE LEAGUE");
         String teamName = league.getName();
@@ -244,7 +244,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: displays a list of teams as well as their starters in a league, as well as options to the user
-    public void displayLeagueMenu(League league) {
+    private void displayLeagueMenu(League league) {
         displayTitle();
         System.out.println(league.getName());
         if (league.isEmpty()) {
@@ -270,7 +270,7 @@ public class TeamsManager {
 
     // MODIFIES: this, league
     // EFFECTS: creates a new team with a user inputted name and adds it to a given league
-    public void createTeamMenu(League league) {
+    private void createTeamMenu(League league) {
         displayTitle();
         System.out.println("TEAM CREATION");
         System.out.println("Enter a team name:");
@@ -282,7 +282,7 @@ public class TeamsManager {
 
     // MODIFIES: this
     // EFFECTS: creates a new team with a user inputted name
-    public void createTeamMenu() {
+    private void createTeamMenu() {
         displayTitle();
         System.out.println("TEAM CREATION");
         System.out.println("Enter a team name:");
@@ -294,7 +294,7 @@ public class TeamsManager {
     // MODIFIES: this, team, league
     // EFFECTS: processes user input and gives user options to manage starters or subs on a team, or manage team
     // information.
-    public void teamMenu(Team team, League league) {
+    private void teamMenu(Team team, League league) {
         boolean quit = false;
         String command;
 
@@ -318,7 +318,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: displays the team menu
-    public void displayTeamMenu(Team team) {
+    private void displayTeamMenu(Team team) {
         displayTitle();
         System.out.println(team.getTeamName());
         System.out.println("Starters:");
@@ -336,7 +336,7 @@ public class TeamsManager {
     // MODIFIES: this, team, league
     // EFFECTS: processes user input and gives user options to rename team, delete team, release all players from the
     // team, or change the team's current league.
-    public boolean manageTeam(Team team, League league) {
+    private boolean manageTeam(Team team, League league) {
         boolean quit = false;
         String command;
 
@@ -363,7 +363,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: displays manage team menu
-    public void displayManageTeam() {
+    private void displayManageTeam() {
         displayTitle();
         System.out.println("MANAGE TEAM MENU");
         System.out.println("\nOptions:");
@@ -376,7 +376,7 @@ public class TeamsManager {
 
     // MODIFIES: this, team, league
     // EFFECTS: changes team's league to user inputted league if it's found in allLeagues.
-    public void changeTeamLeague(Team team, League league) {
+    private void changeTeamLeague(Team team, League league) {
         boolean foundLeague = false;
         if (league != null) {
             league.removeTeam(team);
@@ -397,7 +397,7 @@ public class TeamsManager {
 
     // MODIFIES: this, team
     // EFFECTS: processes user input and gives user options to manage starters.
-    public void startersMenu(Team team) {
+    private void startersMenu(Team team) {
         boolean quit = false;
         String command;
         int index;
@@ -425,7 +425,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: displays starters menu
-    public void displayStarters(Team team) {
+    private void displayStarters(Team team) {
         displayTitle();
         System.out.println("MANAGE STARTERS");
         int i = 0;
@@ -446,7 +446,7 @@ public class TeamsManager {
 
     // MODIFIES: team
     // EFFECTS: adds a new starter to the to team if starting roster is not full.
-    public void addStarter(Team team) {
+    private void addStarter(Team team) {
         System.out.println("ADD STARTER");
         if (team.startersIsFull()) {
             System.out.println("Starting roster is full, cannot add a starter.");
@@ -461,7 +461,7 @@ public class TeamsManager {
 
     // MODIFIES: team
     // EFFECTS: removes a starter from the team if starters is not empty
-    public void removeStarter(Team team) {
+    private void removeStarter(Team team) {
         if (team.startersIsEmpty()) {
             System.out.println("There are no starters to remove.");
         } else {
@@ -477,7 +477,7 @@ public class TeamsManager {
 
     // MODIFIES: this, team
     // EFFECTS: processes user input and gives user options to manage subs.
-    public void subsMenu(Team team) {
+    private void subsMenu(Team team) {
         boolean quit = false;
         String command;
         int index;
@@ -505,7 +505,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: displays subs menu
-    public void displaySubs(Team team) {
+    private void displaySubs(Team team) {
         displayTitle();
         System.out.println("MANAGE SUBS");
         int i = 0;
@@ -526,7 +526,7 @@ public class TeamsManager {
 
     // MODIFIES: team
     // EFFECTS: adds a new sub to the team
-    public void addSub(Team team) {
+    private void addSub(Team team) {
         System.out.println("ADD SUB");
         team.addSub(playerCreation(team));
         System.out.println("Sub has been added.");
@@ -534,7 +534,7 @@ public class TeamsManager {
 
     // MODIFIES: team
     // EFFECTS: removes a sub from the team if subs is not empty.
-    public void removeSub(Team team) {
+    private void removeSub(Team team) {
         if (team.subsIsEmpty()) {
             System.out.println("There are no subs to remove.");
         } else {
@@ -550,7 +550,7 @@ public class TeamsManager {
 
     // MODIFIES: this, team
     // EFFECTS: renames team to a new user inputted name
-    public void renameTeam(Team team) {
+    private void renameTeam(Team team) {
         displayTitle();
         System.out.println("RENAME TEAM");
         System.out.println("Enter a new name for the team:");
@@ -563,7 +563,7 @@ public class TeamsManager {
     // MODIFIES: this, team, league
     // EFFECTS: after confirmation, clears all players from the team and removes the team from the league
     // and list of allTeams
-    public boolean deleteTeam(Team team, League league) {
+    private boolean deleteTeam(Team team, League league) {
         displayTitle();
         System.out.println("DISBAND TEAM");
         String teamName = team.getTeamName();
@@ -586,7 +586,7 @@ public class TeamsManager {
 
     // MODIFIES: this, team
     // EFFECTS: after confirmation, clears all players from the team
-    public void clearTeam(Team team) {
+    private void clearTeam(Team team) {
         displayTitle();
         System.out.println("RELEASE ALL PLAYERS");
         System.out.println("All players will be released from " + team.getTeamName());
@@ -602,7 +602,7 @@ public class TeamsManager {
 
     // MODIFIES: this
     // EFFECTS: creates a player, either pro or amateur based on user input.
-    public Player playerCreation(Team team) {
+    private Player playerCreation(Team team) {
         Player player;
         String command;
         do {
@@ -624,7 +624,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: display player creation menu
-    public void displayPlayerCreation() {
+    private void displayPlayerCreation() {
         displayTitle();
         System.out.println("PLAYER CREATION");
         System.out.println("\nOptions:");
@@ -634,13 +634,13 @@ public class TeamsManager {
 
     // MODIFIES: this, player
     // EFFECTS: processes user input and gives user options to manage player information and stats.
-    public void playerMenu(Player player) {
+    private void playerMenu(Player player) {
         boolean quit = false;
         String command;
 
         while (!quit) {
             displayPlayerInformation(player);
-            displayPlayerOptions(player);
+            displayPlayerOptions();
             command = input.next();
             if (command.equals("q")) {
                 quit = true;
@@ -655,7 +655,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: displays player information
-    public void displayPlayerInformation(Player player) {
+    private void displayPlayerInformation(Player player) {
         displayTitle();
         System.out.println(player.getIgn());
         System.out.println(player.getRole());
@@ -680,20 +680,17 @@ public class TeamsManager {
     }
 
     // EFFECTS: display player options menu
-    public void displayPlayerOptions(Player player) {
+    private void displayPlayerOptions() {
         System.out.println("\nOptions:");
         System.out.println("        q. quit and return to Roster Menu");
         System.out.println("        a. edit player description");
         System.out.println("        b. edit player stats");
-        if (player instanceof AmateurPlayer) {
-            System.out.println("        c. edit player rank");
-        }
     }
 
     // MODIFIES: this, player
     // EFFECTS: processes user input and gives user option to change player description, ign, role, or rank
     // if the player is an AmateurPlayer.
-    public void editDescription(Player player) {
+    private void editDescription(Player player) {
         boolean quit = false;
         String command;
 
@@ -717,7 +714,7 @@ public class TeamsManager {
 
     // MODIFIES: this, player
     // EFFECTS: changes player's description.
-    public void changeDescription(Player player) {
+    private void changeDescription(Player player) {
         System.out.println("Enter new player description:");
         String newInfo = input.nextLine();
         player.setDescription(newInfo);
@@ -725,7 +722,7 @@ public class TeamsManager {
 
     // MODIFIES: this, player
     // EFFECTS: changes player's rank.
-    public void changeRank(AmateurPlayer player) {
+    private void changeRank(AmateurPlayer player) {
         System.out.println("Enter new player rank:");
         String rank = input.next();
         player.setRank(rank);
@@ -733,7 +730,7 @@ public class TeamsManager {
 
     // MODIFIES: this, player
     // EFFECTS: changes player's ign to user input
-    public void changeIgn(Player player) {
+    private void changeIgn(Player player) {
         System.out.println("Enter new player ign:");
         String ign = input.next();
         player.setIgn(ign);
@@ -741,14 +738,14 @@ public class TeamsManager {
 
     // MODIFIES: this, player
     // EFFECTS: changes player's role to user input
-    public void changeRole(Player player) {
+    private void changeRole(Player player) {
         System.out.println("Enter new player role:");
         String role = input.next();
         player.setRole(role);
     }
 
     // EFFECTS: displays description menu
-    public void displayDescriptionMenu(Player player) {
+    private void displayDescriptionMenu(Player player) {
         displayTitle();
         System.out.println("\nOptions:");
         System.out.println("        q. quit and return to Player Menu");
@@ -762,7 +759,7 @@ public class TeamsManager {
 
     // MODIFIES: this, player
     // EFFECTS: processes user input and gives user option to change player stats
-    public void editStats(Player player) {
+    private void editStats(Player player) {
         boolean quit = false;
         String command;
         int newStat;
@@ -789,7 +786,7 @@ public class TeamsManager {
     }
 
     // EFFECTS: display stats menu
-    public void displayStatsMenu(Player player) {
+    private void displayStatsMenu(Player player) {
         displayTitle();
         System.out.println("\nOptions:");
         System.out.println("        q. quit and return to Player Menu");
@@ -803,7 +800,7 @@ public class TeamsManager {
 
     // MODIFIES: this, player
     // EFFECTS: processes user input and gives user option to change pro player specific stats.
-    public void proStatOptions(ProPlayer player, String command) {
+    private void proStatOptions(ProPlayer player, String command) {
         double csm;
         double kda;
         if (command.equals("c")) {

@@ -30,8 +30,11 @@ public class ProPlayerTest {
         pro1.setCsm(10.1);
         assertEquals(10.1, pro1.getCsm());
         pro1.setIgn("DoubleLift");
+        assertEquals("DoubleLift", pro1.getIgn());
         pro1.setRole("ADC");
+        assertEquals("ADC", pro1.getRole());
         pro1.setDescription("NA GOAT");
+        assertEquals("NA GOAT", pro1.getDescription());
     }
 
     @Test
