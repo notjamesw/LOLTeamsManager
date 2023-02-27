@@ -23,11 +23,11 @@ public abstract class Player {
     // MODIFIES: this
     // EFFECTS: updates player's win rate based on their current wins and loses. If the player has 0 games played,
     // win rate = -1.
-    public void updateWinRate() {
+    private void updateWinRate() {
         if (wins + losses == 0) {
             winRate = -1;
         } else {
-            winRate = (double) wins / (wins + losses);
+            winRate = 100 * (double) wins / (wins + losses);
         }
     }
 

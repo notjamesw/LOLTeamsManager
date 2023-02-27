@@ -39,7 +39,7 @@ and X could also be a team, while Y would be a competitive region/league.
 ## User Stories:
 - As a user, I want to create a player with specific stats and information
 - As a user, I want to select a player and be able to change the stats and information of the player
-- As a user, I want to select a player and add the player to a team
+- As a user, I want to add a player to a team
 - As a user, I want to create a team and add it to a list of teams (competitive regions/leagues)
 - As a user, I want to be able to select a competitive region/league and see a list of teams for that region as well as
 the players on that team.

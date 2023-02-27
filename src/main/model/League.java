@@ -31,7 +31,7 @@ public class League {
         teams.add(team);
     }
 
-    // REQUIRES: teams is not empty
+    // REQUIRES: teams is not empty, team is in the league
     // MODIFIES: this
     // EFFECTS: remove a team from the league
     public void removeTeam(Team team) {
