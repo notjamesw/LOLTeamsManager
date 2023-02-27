@@ -696,7 +696,6 @@ public class TeamsManager {
     public void editDescription(Player player) {
         boolean quit = false;
         String command;
-        String newInfo;
 
         while (!quit) {
             displayDescriptionMenu(player);
