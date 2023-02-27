@@ -289,6 +289,14 @@ public class TeamTest {
         team1.addStarter(p4);
         team1.sortStarters();
         assertEquals(sortedStarters, team1.getStarters());
+
+        team1.clearAllPlayers();
+        team1.addStarter(p5);
+        team1.addStarter(p3);
+        team1.addStarter(p2);
+        team1.addStarter(p1);
+        team1.addStarter(p4);
+        assertEquals(sortedStarters, team1.getStarters());
     }
 
 
