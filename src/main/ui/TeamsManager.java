@@ -701,22 +701,35 @@ public class TeamsManager {
         while (!quit) {
             displayDescriptionMenu(player);
             command = input.next();
+            input.nextLine();
             if (command.equals("q")) {
                 quit = true;
             } else if (command.equals("a")) {
-                System.out.println("Enter new player description:");
-                newInfo = input.next();
-                player.setDescription(newInfo);
+                changeDescription(player);
             } else if (command.equals("b")) {
                 changeIgn(player);
             } else if (command.equals("c")) {
                 changeRole(player);
             } else if (player instanceof AmateurPlayer && command.equals("d")) {
-                System.out.println("Enter new player rank:");
-                newInfo = input.next();
-                ((AmateurPlayer) player).setRank(newInfo);
+                changeRank((AmateurPlayer) player);
             }
         }
+    }
+
+    // MODIFIES: this, player
+    // EFFECTS: changes player's description.
+    public void changeDescription(Player player) {
+        System.out.println("Enter new player description:");
+        String newInfo = input.nextLine();
+        player.setDescription(newInfo);
+    }
+
+    // MODIFIES: this, player
+    // EFFECTS: changes player's rank.
+    public void changeRank(AmateurPlayer player) {
+        System.out.println("Enter new player rank:");
+        String rank = input.next();
+        player.setRank(rank);
     }
 
     // MODIFIES: this, player
