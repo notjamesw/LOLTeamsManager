@@ -22,4 +22,38 @@ public class AmateurPlayerTest {
         assertEquals(0, ap1.getWins());
         assertEquals(0, ap1.getLoses());
     }
+
+    @Test
+    public void testSetWins() {
+        ap1.setWins(0);
+        assertEquals(0, ap1.getWins());
+        assertEquals(-1, ap1.getWinRate());
+
+        ap1.setWins(1);
+        assertEquals(1,ap1.getWins());
+        assertEquals(100, ap1.getWinRate());
+    }
+
+    @Test
+    public void testSetLoses() {
+        ap1.setLoses(0);
+        assertEquals(0, ap1.getLoses());
+        assertEquals(-1, ap1.getWinRate());
+
+        ap1.setLoses(1);
+        assertEquals(1,ap1.getLoses());
+        assertEquals(0, ap1.getWinRate());
+    }
+
+    @Test
+    public void testUpdateWinRate() {
+        ap1.setWins(0);
+        assertEquals(-1, ap1.getWinRate());
+
+        ap1.setWins(1);
+        assertEquals(100, ap1.getWinRate());
+
+        ap1.setLoses(2);
+        assertEquals(100 * (double) 1/3, ap1.getWinRate());
+    }
 }
