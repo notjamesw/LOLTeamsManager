@@ -298,7 +298,6 @@ public class TeamTest {
         assertEquals(sortedStarters, team1.getStarters());
     }
 
-
 }
 
 

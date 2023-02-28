@@ -114,7 +114,7 @@ public class Team {
                 player3 = player;
             } else if (player.getRole().equals("BOT")) {
                 player4 = player;
-            } else if (player.getRole().equals("SUPP")) {
+            } else {
                 player5 = player;
             }
         }
