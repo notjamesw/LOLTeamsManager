@@ -815,5 +815,4 @@ public class TeamsManager {
             System.out.println("Please enter a valid command.");
         }
     }
-
 }

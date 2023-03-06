@@ -106,13 +106,15 @@ public class Team {
         Player player4 = starters.get(0);
         Player player5 = starters.get(0);
         for (Player player : this.starters) {
-            if (player.getRole().equals("TOP")) {
+            if (player.getRole().equalsIgnoreCase("TOP")) {
                 player1 = player;
-            } else if (player.getRole().equals("JG")) {
+            } else if (player.getRole().equalsIgnoreCase("JG")
+                    || player.getRole().equalsIgnoreCase("JUNGLE")) {
                 player2 = player;
-            } else if (player.getRole().equals("MID")) {
+            } else if (player.getRole().equalsIgnoreCase("MID")) {
                 player3 = player;
-            } else if (player.getRole().equals("BOT")) {
+            } else if (player.getRole().equalsIgnoreCase("BOT")
+                    || player.getRole().equalsIgnoreCase("ADC")) {
                 player4 = player;
             } else {
                 player5 = player;
