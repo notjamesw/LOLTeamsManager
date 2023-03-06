@@ -44,3 +44,8 @@ and X could also be a team, while Y would be a competitive region/league.
 - As a user, I want to be able to select a competitive region/league and see a list of teams for that region as well as
 the players on that team.
     - As a user, I want to be able to select a team and list all the players on that team. 
+- As a user, I want to be able to save all players, teams and leagues to a file from the main application menu.
+- As a user, when I select the quit option from the main application menu, I want to be reminded to save all players, 
+teams and leagues and have the option to do so or not.
+- As a user, when I start the LOL teams manager application, I want to be given the option to load all players, teams, 
+and leagues from file.
