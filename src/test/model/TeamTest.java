@@ -14,6 +14,8 @@ public class TeamTest {
     private Player p3;
     private Player p4;
     private Player p5;
+    private Player p6;
+    private Player p7;
 
     @BeforeEach
     public void setup() {
@@ -23,6 +25,8 @@ public class TeamTest {
         p3 = new ProPlayer("Faker", "MID", "LCS");
         p4 = new ProPlayer("FBI", "BOT", "LCS");
         p5 = new ProPlayer("Busio", "SUPP", "LCS");
+        p6 = new ProPlayer("Canyon", "JUNGLE", "LCK");
+        p7 = new ProPlayer("DoubleLift", "ADC", "LCS");
     }
 
     @Test
@@ -294,6 +298,24 @@ public class TeamTest {
         team1.addStarter(p4);
         team1.addStarter(p1);
         team1.addStarter(p2);
+        team1.sortStarters();
+        assertEquals(sortedStarters, team1.getStarters());
+    }
+
+    @Test
+    public void testSortPlayersAltRoleNames() {
+        ArrayList<Player> sortedStarters = new ArrayList<>();
+        sortedStarters.add(p1);
+        sortedStarters.add(p6);
+        sortedStarters.add(p3);
+        sortedStarters.add(p7);
+        sortedStarters.add(p5);
+
+        team1.addStarter(p7);
+        team1.addStarter(p3);
+        team1.addStarter(p6);
+        team1.addStarter(p5);
+        team1.addStarter(p1);
         team1.sortStarters();
         assertEquals(sortedStarters, team1.getStarters());
     }
