@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // Represents a professional player
 public class ProPlayer extends Player {
     private double kda;
@@ -34,5 +36,20 @@ public class ProPlayer extends Player {
 
     public void setCsm(double csm) {
         this.csm = csm;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("ign", this.getIgn());
+        json.put("role", this.getRole());
+        json.put("description", this.getDescription());
+        json.put("wins", this.getWins());
+        json.put("loses", this.getLoses());
+        json.put("region", this.region);
+        json.put("kda", this.kda);
+        json.put("csm", this.csm);
+
+        return json;
     }
 }

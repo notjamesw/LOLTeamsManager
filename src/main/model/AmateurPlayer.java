@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 // Represents an amateur player
 public class AmateurPlayer extends Player {
     private String rank;
@@ -18,5 +20,17 @@ public class AmateurPlayer extends Player {
 
     public void setRank(String rank) {
         this.rank = rank;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("ign", this.getIgn());
+        json.put("role", this.getRole());
+        json.put("description", this.getDescription());
+        json.put("wins", this.getWins());
+        json.put("loses", this.getLoses());
+        json.put("rank", this.rank);
+        return json;
     }
 }

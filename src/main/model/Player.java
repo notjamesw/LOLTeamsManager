@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Abstract class representing a player having a username/ign, in-game role, description, wins, losses and win rate.
-public abstract class Player {
+public abstract class Player implements Writable {
     private String ign;          // player's in game name.
     private String role;
     private String description;
@@ -83,4 +86,6 @@ public abstract class Player {
         updateWinRate();
     }
 
+
+    public abstract JSONObject toJson();
 }
