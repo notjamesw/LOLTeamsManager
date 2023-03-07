@@ -11,6 +11,7 @@ public class League implements Writable {
     private ArrayList<Team> teams;
     private String name;
 
+    // REQUIRES: name of league must not be the same as a pre-existing league in allLeagues
     // EFFECTS: constructs a competitive region/league with a name and an empty list of teams
     public League(String name) {
         this.name = name;

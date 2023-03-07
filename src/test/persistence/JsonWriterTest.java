@@ -1,4 +1,4 @@
 package persistence;
 
-public class JsonWriterTest {
+public class JsonWriterTest extends JsonTest{
 }

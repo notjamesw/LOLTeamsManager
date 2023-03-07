@@ -14,6 +14,7 @@ public class Team implements Writable {
     private String league;
     public static final int  MAX_STARTER_SIZE = 5; // max amount of starters on a team.
 
+    // REQUIRES: name of team must not be the same as a pre-existing team
     // EFFECTS: constructs a team with a name, an empty list of starting players and an empty list of subs.
     public Team(String name, String league) {
         this.teamName = name;

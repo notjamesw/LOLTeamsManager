@@ -12,7 +12,7 @@ public abstract class Player implements Writable {
     private int losses;
     private double winRate;
 
-    // REQUIRES: role is a valid in-game role
+    // REQUIRES: role is a valid in-game role, ign of player must not be the same as a pre-existing player
     // EFFECTS: constructs a player with an ign, a role, empty description, no wins, no losses and win rate of -1.
     protected Player(String ign, String role) {
         this.ign = ign;

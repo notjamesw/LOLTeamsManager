@@ -13,17 +13,42 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 public class JsonReader {
-    private String sourceFile;
+    private String sourceFile1; //stores all leagues info
+    private String sourceFile2; //stores all teams info
     private ArrayList<Team> allTeams;
 
-    public JsonReader(String sourceFile) {
-        this.sourceFile = sourceFile;
+    public JsonReader(String sourceFile1, String sourceFile2) {
+        this.sourceFile1 = sourceFile1;
+        this.sourceFile2 = sourceFile2;
+        allTeams = new ArrayList<>();
     }
 
-    public League read() throws IOException {
-        String jsonData = readFile(sourceFile);
-        JSONObject jsonObject = new JSONObject(jsonData);
-        return parseLeague(jsonObject);
+    public ArrayList<League> readLeagues() throws IOException {
+        ArrayList<League> allLeagues = new ArrayList<>();
+        String jsonData = readFile(sourceFile1);
+        JSONArray jsonArray = new JSONArray(jsonData);
+        for (Object json : jsonArray) {
+            JSONObject nextLeague = (JSONObject) json;
+            allLeagues.add(parseLeague(nextLeague));
+        }
+        return allLeagues;
+    }
+
+    public ArrayList<Team> readTeams() throws IOException {
+        String jsonData = readFile(sourceFile2);
+        JSONArray jsonArray = new JSONArray(jsonData);
+        Team team1;
+        for (Object json : jsonArray) {
+            JSONObject nextTeam = (JSONObject) json;
+            team1 = addTeam(nextTeam);
+            for (Team team2 : allTeams) {
+                if (team2.getTeamName().equals(team1.getTeamName())) {
+                    allTeams.add(team1);
+                    break;
+                }
+            }
+        }
+        return allTeams;
     }
 
     private String readFile(String sourceFile) throws IOException {
@@ -45,19 +70,22 @@ public class JsonReader {
 
     private void addTeams(League league, JSONObject jsonObjectLeague) {
         JSONArray jsonArray = jsonObjectLeague.getJSONArray("teams");
+        Team team;
         for (Object json : jsonArray) {
             JSONObject nextTeam = (JSONObject) json;
-            addTeam(league, nextTeam);
+            team = addTeam(nextTeam);
+            league.addTeam(team);
+            allTeams.add(team);
         }
     }
 
-    private void addTeam(League league, JSONObject jsonObjectTeam) {
+    private Team addTeam(JSONObject jsonObjectTeam) {
         String teamName = jsonObjectTeam.getString("teamName");
         String teamLeague = jsonObjectTeam.getString("league");
         Team team = new Team(teamName, teamLeague);
         addStarters(team, jsonObjectTeam);
         addSubs(team, jsonObjectTeam);
-        league.addTeam(team);
+        return team;
     }
 
     private void addStarters(Team team, JSONObject jsonObjectTeam) {
@@ -123,4 +151,6 @@ public class JsonReader {
         player.setCsm(csm);
         return player;
     }
+
+
 }
