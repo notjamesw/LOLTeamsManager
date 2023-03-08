@@ -1,6 +1,67 @@
 [
     {
-        "teams": [],
+        "teams": [
+            {
+                "teamName": "FQ",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "C9",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "EG",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "GG",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "CLG",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "TSM",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "TL",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "100T",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "IMT",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            },
+            {
+                "teamName": "DIG",
+                "subs": [],
+                "league": "LCS",
+                "starters": []
+            }
+        ],
         "name": "LCS"
     },
     {

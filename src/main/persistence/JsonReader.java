@@ -46,17 +46,22 @@ public class JsonReader {
         String jsonData = readFile(sourceFile2);
         JSONArray jsonArray = new JSONArray(jsonData);
         Team team1;
+        boolean alreadyAdded;
         for (Object json : jsonArray) {
+            alreadyAdded = false;
             JSONObject nextTeam = (JSONObject) json;
             team1 = addTeam(nextTeam);
             if (allTeams.isEmpty()) {
                 allTeams.add(team1);
             }
             for (Team team2 : allTeams) {
-                if (!team2.getTeamName().equals(team1.getTeamName())) {
-                    allTeams.add(team1);
+                if (team2.getTeamName().equals(team1.getTeamName())) {
+                    alreadyAdded = true;
                     break;
                 }
+            }
+            if (!alreadyAdded) {
+                allTeams.add(team1);
             }
         }
         return allTeams;
