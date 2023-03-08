@@ -1,0 +1,52 @@
+[
+    {
+        "teamName": "100T",
+        "subs": [
+            {
+                "wins": 0,
+                "ign": "Bob",
+                "role": "TOP",
+                "loses": 0,
+                "description": "",
+                "rank": "Silver"
+            },
+            {
+                "wins": 0,
+                "ign": "Canyon",
+                "role": "JG",
+                "loses": 0,
+                "description": "",
+                "kda": 0,
+                "region": "LCS",
+                "csm": 0
+            }
+        ],
+        "league": "LCS",
+        "starters": [
+            {
+                "wins": 0,
+                "ign": "Faker",
+                "role": "MID",
+                "loses": 0,
+                "description": "",
+                "kda": 0,
+                "region": "LCS",
+                "csm": 0
+            },
+            {
+                "wins": 0,
+                "ign": "Joe",
+                "role": "SUPP",
+                "loses": 0,
+                "description": "",
+                "rank": "Gold"
+            }
+        ]
+    },
+    {
+        "teamName": "TSM",
+        "subs": [],
+        "league": "No league",
+        "starters": []
+    }
+]

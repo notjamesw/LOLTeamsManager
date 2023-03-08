@@ -1,0 +1,15 @@
+[{
+    "teamName": "100T",
+    "subs": [],
+    "league": "LCS",
+    "starters": [{
+        "wins": 0,
+        "ign": "Faker",
+        "role": "MID",
+        "loses": 0,
+        "description": "",
+        "kda": 0,
+        "region": "LCS",
+        "csm": 0
+    }]
+}]
