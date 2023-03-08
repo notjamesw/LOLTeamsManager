@@ -1,7 +1,10 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,7 +34,7 @@ public class TeamsManager {
         String command;
 
         init();
-
+        loadOption();
         while (!quit) {
             displayMainMenu();
             command = input.next();
@@ -41,11 +44,62 @@ public class TeamsManager {
                 allLeaguesMenu();
             } else if (command.equals("b")) {
                 allTeamsMenu();
+            } else if (command.equals("c")) {
+                loadOption();
+            } else if (command.equals("d")) {
+                saveOption();
             } else {
                 System.out.println("Please enter a valid command.");
             }
         }
+        saveOption();
         System.out.println("\nThank you for using LOL Teams Manager.");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads allTeams and allLeagues from save files
+    private void loadOption() {
+        displayTitle();
+        System.out.println("LOAD FILES");
+        System.out.println("Would you like to load the save file?");
+        System.out.println("To confirm, enter 'y'.");
+        String confirm = input.next();
+        if (confirm.equals("y")) {
+            JsonReader reader = new JsonReader("./data/savedLeagues.json", "./data/savedTeams.json");
+            try {
+                allLeagues = reader.readLeagues();
+                allTeams = reader.readTeams();
+                System.out.println("Load was successful.");
+            } catch (IOException e) {
+                System.out.println("Exception was thrown. No save file was found. ");
+            }
+        } else {
+            System.out.println("No files were loaded.");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: saves allTeams and allLeagues to save files.
+    private void saveOption() {
+        displayTitle();
+        System.out.println("SAVE FILES");
+        System.out.println("Would you like to save to file?");
+        System.out.println("To confirm, enter 'y'.");
+        String confirm = input.next();
+        if (confirm.equals("y")) {
+            try {
+                JsonWriter writer = new JsonWriter("./data/savedLeagues.json", "./data/savedTeams.json");
+                writer.open();
+                writer.writeLeagues(allLeagues);
+                writer.writeTeams(allTeams);
+                writer.close();
+                System.out.println("Save was successful.");
+            } catch (IOException e) {
+                System.out.println("Exception was thrown. Save failed.");
+            }
+        } else {
+            System.out.println("No files were saved.");
+        }
     }
 
     // EFFECTS: displays the title of the application
@@ -62,6 +116,8 @@ public class TeamsManager {
         System.out.println("        q. quit application");
         System.out.println("        a. View Leagues");
         System.out.println("        b. View all teams");
+        System.out.println("        c. Load files");
+        System.out.println("        d. Save to files");
     }
 
     // MODIFIES: this

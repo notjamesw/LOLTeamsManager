@@ -41,8 +41,11 @@ public class JsonReader {
         for (Object json : jsonArray) {
             JSONObject nextTeam = (JSONObject) json;
             team1 = addTeam(nextTeam);
+            if (allTeams.isEmpty()) {
+                allTeams.add(team1);
+            }
             for (Team team2 : allTeams) {
-                if (team2.getTeamName().equals(team1.getTeamName())) {
+                if (!team2.getTeamName().equals(team1.getTeamName())) {
                     allTeams.add(team1);
                     break;
                 }
@@ -101,8 +104,8 @@ public class JsonReader {
         String ign = jsonObjectPlayer.getString("ign");
         String role = jsonObjectPlayer.getString("role");
         String description = jsonObjectPlayer.getString("description");
-        int wins = Integer.parseInt(jsonObjectPlayer.getString("wins"));
-        int loses = Integer.parseInt(jsonObjectPlayer.getString("loses"));
+        int wins = jsonObjectPlayer.getInt("wins");
+        int loses = jsonObjectPlayer.getInt("loses");
         try {
             String rank = jsonObjectPlayer.getString("rank");
             player = new AmateurPlayer(ign, role, rank);
@@ -128,8 +131,8 @@ public class JsonReader {
         String ign = jsonObjectPlayer.getString("ign");
         String role = jsonObjectPlayer.getString("role");
         String description = jsonObjectPlayer.getString("description");
-        int wins = Integer.parseInt(jsonObjectPlayer.getString("wins"));
-        int loses = Integer.parseInt(jsonObjectPlayer.getString("loses"));
+        int wins = jsonObjectPlayer.getInt("wins");
+        int loses = jsonObjectPlayer.getInt("loses");
         try {
             String rank = jsonObjectPlayer.getString("rank");
             player = new AmateurPlayer(ign, role, rank);
@@ -144,8 +147,8 @@ public class JsonReader {
 
     private ProPlayer addPro(String ign, String role, JSONObject jsonObjectPlayer) {
         String region = jsonObjectPlayer.getString("region");
-        double kda = Double.parseDouble(jsonObjectPlayer.getString("kda"));
-        double csm = Double.parseDouble(jsonObjectPlayer.getString("csm"));
+        double kda = jsonObjectPlayer.getDouble("kda");
+        double csm = jsonObjectPlayer.getDouble("csm");
         ProPlayer player = new ProPlayer(ign, role, region);
         player.setKda(kda);
         player.setCsm(csm);

@@ -49,3 +49,9 @@ the players on that team.
 teams and leagues and have the option to do so or not.
 - As a user, when I start the LOL teams manager application, I want to be given the option to load all players, teams, 
 and leagues from file.
+
+
+
+References: 
+I used CPSC210 JsonSerializationDemo as reference for my JsonReader and JsonWriter classes. It can be found at:
+https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.

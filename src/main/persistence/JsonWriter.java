@@ -30,6 +30,7 @@ public class JsonWriter {
         JSONArray jsonArray = new JSONArray();
         for (League league : allLeagues) {
             JSONObject json = league.toJson();
+            jsonArray.put(json);
         }
         saveToFileLeague(jsonArray.toString(TAB));
     }
@@ -38,6 +39,7 @@ public class JsonWriter {
         JSONArray jsonArray = new JSONArray();
         for (Team team : allTeams) {
             JSONObject json = team.toJson();
+            jsonArray.put(json);
         }
         saveToFileTeam(jsonArray.toString(TAB));
     }
