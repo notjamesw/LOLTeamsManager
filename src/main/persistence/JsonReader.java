@@ -12,17 +12,22 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
+// Represents a reader that reads list of leagues and teams from JSON data stored in two files, modelled based on
+// CPSC210 JsonSerializationDemo project.
 public class JsonReader {
     private String sourceFile1; //stores all leagues info
     private String sourceFile2; //stores all teams info
     private ArrayList<Team> allTeams;
 
+    // EFFECTS: constructs a reader to read from source files
     public JsonReader(String sourceFile1, String sourceFile2) {
         this.sourceFile1 = sourceFile1;
         this.sourceFile2 = sourceFile2;
-        allTeams = new ArrayList<>();
+        this.allTeams = new ArrayList<>();
     }
 
+    // EFFECTS: reads list of leagues from file and returns it. Throws IOException if an error occurs when
+    // reading data from file.
     public ArrayList<League> readLeagues() throws IOException {
         ArrayList<League> allLeagues = new ArrayList<>();
         String jsonData = readFile(sourceFile1);
@@ -34,6 +39,9 @@ public class JsonReader {
         return allLeagues;
     }
 
+    // MODIFIES: this
+    // EFFECTS: reads list of teams from file and returns allTeams, duplicates are skipped. Throws IOException if an
+    // error occurs when reading data from file.
     public ArrayList<Team> readTeams() throws IOException {
         String jsonData = readFile(sourceFile2);
         JSONArray jsonArray = new JSONArray(jsonData);
@@ -54,6 +62,7 @@ public class JsonReader {
         return allTeams;
     }
 
+    // EFFECTS: reads source file as string and returns it
     private String readFile(String sourceFile) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
@@ -64,6 +73,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
+    // EFFECTS: parses league from JSON object and returns it
     private League parseLeague(JSONObject jsonObjectLeague) {
         String name = jsonObjectLeague.getString("name");
         League league = new League(name);
@@ -71,6 +81,8 @@ public class JsonReader {
         return league;
     }
 
+    // MODIFIES: this, league
+    // EFFECTS: parses teams from JSON object and adds them to a given league and allTeams
     private void addTeams(League league, JSONObject jsonObjectLeague) {
         JSONArray jsonArray = jsonObjectLeague.getJSONArray("teams");
         Team team;
@@ -82,6 +94,7 @@ public class JsonReader {
         }
     }
 
+    // EFFECTS: parses a team from JSON object and returns it.
     private Team addTeam(JSONObject jsonObjectTeam) {
         String teamName = jsonObjectTeam.getString("teamName");
         String teamLeague = jsonObjectTeam.getString("league");
@@ -91,6 +104,8 @@ public class JsonReader {
         return team;
     }
 
+    // MODIFIES: team
+    // EFFECTS: parses starters from JSON object and adds them to the team
     private void addStarters(Team team, JSONObject jsonObjectTeam) {
         JSONArray jsonArray = jsonObjectTeam.getJSONArray("starters");
         for (Object json : jsonArray) {
@@ -99,6 +114,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: team
+    // EFFECTS: parses a starter from JSON object and add the starter to the team
     private void addStarter(Team team, JSONObject jsonObjectPlayer) {
         Player player;
         String ign = jsonObjectPlayer.getString("ign");
@@ -118,6 +135,8 @@ public class JsonReader {
         team.addStarter(player);
     }
 
+    // MODIFIES: team
+    // EFFECTS: parses subs from JSON object and adds them to the team
     private void addSubs(Team team, JSONObject jsonObjectTeam) {
         JSONArray jsonArray = jsonObjectTeam.getJSONArray("subs");
         for (Object json : jsonArray) {
@@ -126,6 +145,8 @@ public class JsonReader {
         }
     }
 
+    // MODIFIES: team
+    // EFFECTS: parses a sub from JSON object and add the sub to the team
     private void addSub(Team team, JSONObject jsonObjectPlayer) {
         Player player;
         String ign = jsonObjectPlayer.getString("ign");
@@ -145,6 +166,7 @@ public class JsonReader {
         team.addSub(player);
     }
 
+    // EFFECTS: parses a pro player from JSON object and returns the player
     private ProPlayer addPro(String ign, String role, JSONObject jsonObjectPlayer) {
         String region = jsonObjectPlayer.getString("region");
         double kda = jsonObjectPlayer.getDouble("kda");

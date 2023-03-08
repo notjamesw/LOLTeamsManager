@@ -142,6 +142,7 @@ public class Team implements Writable {
     }
 
     @Override
+    // EFFECTS: returns this team as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("teamName", teamName);
@@ -152,14 +153,17 @@ public class Team implements Writable {
         return json;
     }
 
+    // EFFECTS: returns starters in this team as a JSON array
     private JSONArray startersToJson() {
         return listToJson(starters);
     }
 
+    // EFFECTS: returns subs in this team as a JSON array
     private JSONArray subsToJson() {
         return listToJson(subs);
     }
 
+    // EFFECTS: returns list of players as a JSON array
     private JSONArray listToJson(ArrayList<Player> listOfPlayers) {
         JSONArray jsonArray = new JSONArray();
 

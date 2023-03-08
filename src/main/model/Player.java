@@ -86,6 +86,6 @@ public abstract class Player implements Writable {
         updateWinRate();
     }
 
-
+    // EFFECTS: returns this player as a JSON object
     public abstract JSONObject toJson();
 }

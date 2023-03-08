@@ -52,6 +52,7 @@ and leagues from file.
 
 
 
-References: 
-I used CPSC210 JsonSerializationDemo as reference for my JsonReader and JsonWriter classes. It can be found at:
+## References:
+
+I used CPSC210 JsonSerializationDemo project as reference for my JsonReader and JsonWriter classes. It can be found at:
 https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.

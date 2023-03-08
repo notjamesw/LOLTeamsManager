@@ -38,6 +38,7 @@ public class ProPlayer extends Player {
         this.csm = csm;
     }
 
+    // EFFECTS: returns this pro player as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

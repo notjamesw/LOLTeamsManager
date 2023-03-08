@@ -22,6 +22,7 @@ public class AmateurPlayer extends Player {
         this.rank = rank;
     }
 
+    // EFFECTS: returns this amateur player as a JSON object
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

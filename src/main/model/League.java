@@ -60,6 +60,7 @@ public class League implements Writable {
     }
 
     @Override
+    // EFFECTS: returns this league as JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
@@ -67,6 +68,7 @@ public class League implements Writable {
         return json;
     }
 
+    // EFFECTS: returns teams in this league as a JSON array
     private JSONArray teamsToJson() {
         JSONArray jsonArray = new JSONArray();
 
