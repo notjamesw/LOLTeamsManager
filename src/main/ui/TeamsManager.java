@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-// Represents an LOL team manager application
+// Represents a console based LOL team manager application
 public class TeamsManager {
     private ArrayList<Team> allTeams;     // list of all teams
     private ArrayList<League> allLeagues; // list of all leagues

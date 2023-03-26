@@ -3,9 +3,27 @@
         "teams": [
             {
                 "teamName": "FQ",
-                "subs": [],
+                "subs": [{
+                    "wins": 0,
+                    "ign": "Faker",
+                    "role": "MID",
+                    "loses": 0,
+                    "description": "",
+                    "kda": 0,
+                    "region": "LCS",
+                    "csm": 0
+                }],
                 "league": "LCS",
-                "starters": []
+                "starters": [{
+                    "wins": 0,
+                    "ign": "Spica",
+                    "role": "JG",
+                    "loses": 0,
+                    "description": "",
+                    "kda": 0,
+                    "region": "LCS",
+                    "csm": 0
+                }]
             },
             {
                 "teamName": "C9",
@@ -75,5 +93,9 @@
     {
         "teams": [],
         "name": "LCK"
+    },
+    {
+        "teams": [],
+        "name": "LMS"
     }
 ]
