@@ -17,7 +17,6 @@ public class TeamsManagerGUI extends JFrame implements ActionListener {
     private static final int HEIGHT = 600;
     private ArrayList<Team> allTeams;     // list of all teams
     private ArrayList<League> allLeagues; // list of all leagues
-    private Scanner input;
 
     private JDesktopPane desktop;
 
@@ -28,21 +27,34 @@ public class TeamsManagerGUI extends JFrame implements ActionListener {
         desktop = new JDesktopPane();
         setContentPane(desktop);
         setLocationRelativeTo(null);
-        setVisible(true);
         setResizable(false);
 
         init();
         runApp();
+        setVisible(true);
     }
 
-    public void init() {
+    private void init() {
         this.allTeams = new ArrayList<>();
         this.allLeagues = new ArrayList<>();
     }
 
-    public void runApp() {
-
+    private void runApp() {
+        addMenu();
     }
+
+    private void addMenu() {
+        JMenuBar menuBar = new JMenuBar();
+        JMenu filesMenu = new JMenu("File");
+        JMenuItem saveMenu = new JMenuItem(new SaveUI(allTeams, allLeagues));
+        JMenuItem loadMenu = new JMenuItem(new LoadUI(allTeams, allLeagues));
+
+        filesMenu.add(loadMenu);
+        filesMenu.add(saveMenu);
+        menuBar.add(filesMenu);
+        setJMenuBar(menuBar);
+    }
+
 
     public void actionPerformed(ActionEvent e) {
 
