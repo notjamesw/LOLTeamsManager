@@ -34,7 +34,7 @@ public class LabelChanger extends JFrame implements ActionListener {
         setResizable(false);
     }
 
-    //This is the method that is called when the the JButton btn is clicked
+    //This is the method that is called when the JButton btn is clicked
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("myButton")) {
             label.setText(field.getText());
