@@ -234,6 +234,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    // REQUIRES: team is not empty
     // MODIFIES: this
     // EFFECTS: goes to team Menu
     private void teamSelectActionPerformed(ActionEvent e) {
