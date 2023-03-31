@@ -40,6 +40,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
     private JButton buttonSelectLeague;
     private AddTeamListener addTeamListener;
     private JButton buttonSelectTeam;
+    private GridBagConstraints gbc;
+    private JButton buttonRemoveTeam;
 
     private DefaultListModel<String> listModelLeagueNames;
     private DefaultListModel<String> listModelTeamNames;
@@ -67,10 +69,18 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         this.leagueMenu = new JPanel();
         this.teamMenu = new JPanel();
         this.currentLeague = null;
+        gbc();
 
         this.mainMenu = new JPanel();
         mainMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
         layerMenus();
+    }
+
+    private void gbc() {
+        gbc = new GridBagConstraints();
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
     }
 
     private void layerMenus() {
@@ -121,13 +131,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         buttonLeagues.addActionListener(this);
         buttonTeams.addActionListener(this);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        mainMenu.add(buttonLeagues, gbc);
-        mainMenu.add(buttonTeams, gbc);
+        mainMenu.add(buttonLeagues, this.gbc);
+        mainMenu.add(buttonTeams, this.gbc);
     }
 
     private void addDropDownMenu() {
@@ -157,11 +162,26 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         } else if (e.getActionCommand().equals("League Menu")) {
             leagueMenuActionPerformed(e);
         } else if (e.getActionCommand().equals("Team Menu")) {
-            teamActionPerformed(e);
+            teamSelectActionPerformed(e);
+        } else if (e.getActionCommand().equals("Remove Team")) {
+            removeTeamActionPerformed();
         } else if (e.getActionCommand().equals("Return")) {
             returnFromTeamActionPerformed();
         } else {
             menuBarActionPerformed(e);
+        }
+    }
+
+    private void removeTeamActionPerformed() {
+        int index = allTeamsList.getSelectedIndex();
+        int size = listModelTeamNames.getSize();
+        if (size == 0) {
+            buttonRemoveTeam.setEnabled(false);
+        } else {
+            System.out.println(currentLeague.getName());
+            Team team = currentLeague.getTeams().get(index);
+            currentLeague.removeTeam(team);
+            allTeams.remove(team);
         }
     }
 
@@ -177,12 +197,17 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
 
     private void leagueMenuActionPerformed(ActionEvent e) {
         int index = allLeaguesList.getSelectedIndex();
-        allMenus.show(contentPane, "League Menu");
-        currentLeague = allLeagues.get(index);
-        leagueMenu(currentLeague);
+        int size = listModelLeagueNames.getSize();
+        if (size == 0) {
+            buttonSelectLeague.setEnabled(false);
+        } else {
+            allMenus.show(contentPane, "League Menu");
+            currentLeague = allLeagues.get(index);
+            leagueMenu(currentLeague);
+        }
     }
 
-    private void teamActionPerformed(ActionEvent e) {
+    private void teamSelectActionPerformed(ActionEvent e) {
         int index = allTeamsList.getSelectedIndex();
         allMenus.show(contentPane, "Team Menu");
         if (currentLeague == null) {
@@ -200,18 +225,12 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         title.setPreferredSize(new Dimension(700,50));
         title.setFont(titleFont);
         leagueName.setFont(titleFont);
+
         listModelTeamNames = makeListModelTeamsName(league.getTeams());
         allTeamsList = new JList(listModelTeamNames);
-        allTeamsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        allTeamsList.setSelectedIndex(0);
-        allTeamsList.addListSelectionListener(this);
-        allTeamsList.setVisibleRowCount(20);
-        allTeamsList.setPreferredSize(new Dimension(700,400));
+        allTeamsListSetUp();
+
         JScrollPane listScrollPane = new JScrollPane(allTeamsList);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         leagueMenu.add(title, gbc);
         leagueMenu.add(leagueName, gbc);
@@ -219,14 +238,24 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         leagueMenu.add(buttonPanelLeague(league), gbc);
     }
 
+    private void allTeamsListSetUp() {
+        allTeamsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        allTeamsList.setSelectedIndex(0);
+        allTeamsList.addListSelectionListener(this);
+        allTeamsList.setVisibleRowCount(20);
+        allTeamsList.setPreferredSize(new Dimension(700,400));
+    }
+
     private JPanel buttonPanelLeague(League league) {
         JButton buttonBack;
         JButton buttonAdd;
 
-        buttonBack = new JButton("Return to All Leagues");
+        buttonBack = new JButton("Return to Leagues");
         buttonBack.setActionCommand("All Leagues");
         buttonAdd = new JButton("Create Team");
         buttonAdd.setActionCommand("Add Team");
+        buttonRemoveTeam = new JButton("Remove Team");
+        buttonRemoveTeam.setActionCommand("Remove Team");
         buttonSelectTeam = new JButton("Team Info");
         buttonSelectTeam.setActionCommand("Team Menu");
 
@@ -237,6 +266,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         buttonBack.addActionListener(this);
         buttonAdd.addActionListener(this);
         buttonSelectTeam.addActionListener(this);
+        buttonRemoveTeam.addActionListener(this);
         return addButtonsLeagueMenu(buttonBack, buttonAdd);
     }
 
@@ -247,6 +277,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         buttonsPanel.add(buttonAdd);
         buttonsPanel.add(newName);
         buttonsPanel.add(buttonSelectTeam);
+        buttonsPanel.add(buttonRemoveTeam);
         return buttonsPanel;
     }
 
@@ -260,11 +291,6 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         JButton back = new JButton("Return");
         back.setActionCommand("Return");
         back.addActionListener(this);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         teamMenu.add(title, gbc);
         teamMenu.add(teamName, gbc);
@@ -324,12 +350,17 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
 
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
-            if (allLeaguesList.getSelectedIndex() == 0) {
-                //No selection, disable fire button.
+            if (allLeaguesList.getSelectedIndex() == -1) {
+                //No selection, disable select button
                 buttonSelectLeague.setEnabled(false);
             } else {
-                //Selection, enable the fire button.
+                //Selection, enable the select button
                 buttonSelectLeague.setEnabled(true);
+            }
+            if (allTeamsList.getSelectedIndex() == -1) {
+                buttonRemoveTeam.setEnabled(false);
+            } else {
+                buttonRemoveTeam.setEnabled(true);
             }
         }
     }
@@ -348,11 +379,6 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         allLeaguesList.setVisibleRowCount(20);
         allLeaguesList.setPreferredSize(new Dimension(700,400));
         JScrollPane listScrollPane = new JScrollPane(allLeaguesList);
-
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         allLeaguesMenu.add(title, gbc);
         allLeaguesMenu.add(listScrollPane, gbc);
@@ -408,16 +434,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         title.setFont(titleFont);
         listModelTeamNames = makeListModelTeamsName(allTeams);
         allTeamsList = new JList(listModelTeamNames);
-        allTeamsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        allTeamsList.setSelectedIndex(0);
-        allTeamsList.addListSelectionListener(this);
-        allTeamsList.setVisibleRowCount(20);
-        allTeamsList.setPreferredSize(new Dimension(700,400));
+        allTeamsListSetUp();
         JScrollPane listScrollPane = new JScrollPane(allTeamsList);
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         allTeamsMenu.add(title, gbc);
         allTeamsMenu.add(listScrollPane, gbc);
