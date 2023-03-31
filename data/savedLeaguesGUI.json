@@ -2,93 +2,19 @@
     {
         "teams": [
             {
-                "teamName": "FQ",
-                "subs": [{
-                    "wins": 0,
-                    "ign": "Faker",
-                    "role": "MID",
-                    "loses": 0,
-                    "description": "",
-                    "kda": 0,
-                    "region": "LCS",
-                    "csm": 0
-                }],
-                "league": "LCS",
-                "starters": [{
-                    "wins": 0,
-                    "ign": "Spica",
-                    "role": "JG",
-                    "loses": 0,
-                    "description": "",
-                    "kda": 0,
-                    "region": "LCS",
-                    "csm": 0
-                }]
-            },
-            {
-                "teamName": "C9",
+                "teamName": "G2",
                 "subs": [],
-                "league": "LCS",
+                "league": "LEC",
                 "starters": []
             },
             {
-                "teamName": "EG",
+                "teamName": "VIT",
                 "subs": [],
-                "league": "LCS",
-                "starters": []
-            },
-            {
-                "teamName": "GG",
-                "subs": [],
-                "league": "LCS",
-                "starters": []
-            },
-            {
-                "teamName": "CLG",
-                "subs": [],
-                "league": "LCS",
-                "starters": []
-            },
-            {
-                "teamName": "TSM",
-                "subs": [],
-                "league": "LCS",
-                "starters": []
-            },
-            {
-                "teamName": "TL",
-                "subs": [],
-                "league": "LCS",
-                "starters": []
-            },
-            {
-                "teamName": "100T",
-                "subs": [],
-                "league": "LCS",
-                "starters": []
-            },
-            {
-                "teamName": "IMT",
-                "subs": [],
-                "league": "LCS",
-                "starters": []
-            },
-            {
-                "teamName": "DIG",
-                "subs": [],
-                "league": "LCS",
+                "league": "LEC",
                 "starters": []
             }
         ],
-        "name": "LCS"
-    },
-    {
-        "teams": [],
         "name": "LEC"
-    },
-    {
-        "teams": [],
-        "name": "LPL"
     },
     {
         "teams": [],
@@ -96,6 +22,6 @@
     },
     {
         "teams": [],
-        "name": "LMS"
+        "name": "LCS"
     }
 ]
