@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// Represents a Listener for adding leagues based on Java Oracle ListDemo
 public class AddLeagueListener implements ActionListener, DocumentListener {
     private boolean alreadyEnabled = false;
     private JButton button;
@@ -18,6 +19,7 @@ public class AddLeagueListener implements ActionListener, DocumentListener {
     private ArrayList<League> allLeagues;
     private JTextField newName;
 
+    // EFFECTS: constructs a Listener with a button, a listmodel, a jlist, a list of all leagues and a jtextfield
     public AddLeagueListener(JButton button, DefaultListModel listModelLeagueNames, JList allLeaguesList,
                              ArrayList<League> allLeagues, JTextField newName) {
         this.button = button;
@@ -27,7 +29,9 @@ public class AddLeagueListener implements ActionListener, DocumentListener {
         this.newName = newName;
     }
 
-    //Required by ActionListener.
+    @Override
+    //MODIFIES: this
+    //EFFECTS: adds a league to the list of allLeagues
     public void actionPerformed(ActionEvent e) {
         String name = newName.getText();
 
@@ -58,33 +62,38 @@ public class AddLeagueListener implements ActionListener, DocumentListener {
         allLeaguesList.ensureIndexIsVisible(index);
     }
 
+    // EFFECTS: returns true if a league is already in the listModel
     protected boolean alreadyInList(String name) {
         return listModelLeagueNames.contains(name);
     }
 
-    //Required by DocumentListener.
+    @Override
     public void insertUpdate(DocumentEvent e) {
         enableButton();
     }
 
-    //Required by DocumentListener.
+    @Override
     public void removeUpdate(DocumentEvent e) {
         handleEmptyTextField(e);
     }
 
-    //Required by DocumentListener.
+    @Override
     public void changedUpdate(DocumentEvent e) {
         if (!handleEmptyTextField(e)) {
             enableButton();
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: enables button
     private void enableButton() {
         if (!alreadyEnabled) {
             button.setEnabled(true);
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: checks if the field is empty, if it is disable the button
     private boolean handleEmptyTextField(DocumentEvent e) {
         if (e.getDocument().getLength() <= 0) {
             button.setEnabled(false);

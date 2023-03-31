@@ -48,6 +48,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
     private JList allLeaguesList;
     private JList allTeamsList;
 
+    // EFFECTS: runs the teams manager GUI application
     public TeamsManagerGUI() {
         super("LOL Teams Manager");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -60,6 +61,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes fields
     private void init() {
         this.allTeams = new ArrayList<>();
         this.allLeagues = new ArrayList<>();
@@ -76,6 +79,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         layerMenus();
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up GridBagConstraints
     private void gbc() {
         gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
@@ -83,6 +88,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         gbc.fill = GridBagConstraints.HORIZONTAL;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up a layered contentPane
     private void layerMenus() {
         contentPane = this.getContentPane();
         contentPane.setLayout(allMenus);
@@ -94,12 +101,16 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         contentPane.add("Team Menu", teamMenu);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up and displays mainMenu
     private void runApp() {
         addDropDownMenu();
         addLabelMain();
         addButtonsMain();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the title and the background icon to mainMenu panel
     private void addLabelMain() {
         ImageIcon appImage = new ImageIcon("./images/LOLTM.png");
         JLabel menu = new JLabel("Main Menu");
@@ -119,6 +130,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         mainMenu.add(menu, gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds buttons to the mainMenu panel
     private void addButtonsMain() {
         JButton buttonLeagues;
         JButton buttonTeams;
@@ -135,6 +148,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         mainMenu.add(buttonTeams, this.gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the drop-down menu bar
     private void addDropDownMenu() {
         JMenuBar menuBar = new JMenuBar();
         JMenu filesMenu = new JMenu("File");
@@ -149,6 +164,9 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         setJMenuBar(menuBar);
     }
 
+    @Override
+    // MODIFIES: this
+    // EFFECTS: checks for action events and carries out corresponding events
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("All Leagues")) {
             allMenus.show(contentPane, "allLeagues");
@@ -172,19 +190,26 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes a team
     private void removeTeamActionPerformed() {
         int index = allTeamsList.getSelectedIndex();
         int size = listModelTeamNames.getSize();
         if (size == 0) {
             buttonRemoveTeam.setEnabled(false);
         } else {
-            System.out.println(currentLeague.getName());
             Team team = currentLeague.getTeams().get(index);
             currentLeague.removeTeam(team);
             allTeams.remove(team);
+            listModelTeamNames.remove(index);
+
+            allTeamsList.setSelectedIndex(index);
+            allTeamsList.ensureIndexIsVisible(index);
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: return to original menu from team menu
     private void returnFromTeamActionPerformed() {
         if (currentLeague == null) {
             allMenus.show(contentPane, "allTeams");
@@ -195,6 +220,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: goes to league Menu
     private void leagueMenuActionPerformed(ActionEvent e) {
         int index = allLeaguesList.getSelectedIndex();
         int size = listModelLeagueNames.getSize();
@@ -207,6 +234,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: goes to team Menu
     private void teamSelectActionPerformed(ActionEvent e) {
         int index = allTeamsList.getSelectedIndex();
         allMenus.show(contentPane, "Team Menu");
@@ -217,6 +246,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays and sets up league Menu
     private void leagueMenu(League league) {
         leagueMenu.removeAll();
         leagueMenu.setLayout(new GridBagLayout());
@@ -238,6 +269,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         leagueMenu.add(buttonPanelLeague(league), gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up allTeams JList
     private void allTeamsListSetUp() {
         allTeamsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         allTeamsList.setSelectedIndex(0);
@@ -246,6 +279,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         allTeamsList.setPreferredSize(new Dimension(700,400));
     }
 
+    // MODIFIES: this
+    // EFFECTS: returns a JPanel and set up buttons to League Menu Panel
     private JPanel buttonPanelLeague(League league) {
         JButton buttonBack;
         JButton buttonAdd;
@@ -270,6 +305,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         return addButtonsLeagueMenu(buttonBack, buttonAdd);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds buttons to League Menu Panel
     private JPanel addButtonsLeagueMenu(JButton buttonBack, JButton buttonAdd) {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.LINE_AXIS));
@@ -281,6 +318,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         return buttonsPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up teamMenu JPanel
     private void teamMenu(Team team) {
         teamMenu.removeAll();
         teamMenu.setLayout(new GridBagLayout());
@@ -298,6 +337,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         teamMenu.add(back, gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: changes based on action performed
     public void menuBarActionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Load Files")) {
             loadFiles();
@@ -306,6 +347,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads files
     private void loadFiles() {
         int answer = JOptionPane.showConfirmDialog(null, "Load Save Files?",
                 "Load", JOptionPane.YES_NO_OPTION);
@@ -319,6 +362,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
                 allLeagues = reader.readLeagues();
                 allTeams = reader.readTeams();
                 message = new PopUpMessage("Load was successful.");
+                allLeaguesMenuSetUpLists();
             } catch (IOException e) {
                 message = new PopUpMessage("Exception was thrown. No save file was found. ");
             }
@@ -327,6 +371,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: save files
     private void saveFiles() {
         int answer = JOptionPane.showConfirmDialog(null, "Save to Files?",
                 "Save", JOptionPane.YES_NO_OPTION);
@@ -348,6 +394,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             if (allLeaguesList.getSelectedIndex() == -1) {
@@ -357,6 +404,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
                 //Selection, enable the select button
                 buttonSelectLeague.setEnabled(true);
             }
+
             if (allTeamsList.getSelectedIndex() == -1) {
                 buttonRemoveTeam.setEnabled(false);
             } else {
@@ -365,19 +413,15 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up all leagues menu
     private void allLeaguesMenu() {
         allLeaguesMenu.removeAll();
         allLeaguesMenu.setLayout(new GridBagLayout());
         JLabel title = new JLabel("All Leagues Menu");
         title.setPreferredSize(new Dimension(700,50));
         title.setFont(titleFont);
-        listModelLeagueNames = makeListModelLeaguesName(allLeagues);
-        allLeaguesList = new JList(listModelLeagueNames);
-        allLeaguesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        allLeaguesList.setSelectedIndex(0);
-        allLeaguesList.addListSelectionListener(this);
-        allLeaguesList.setVisibleRowCount(20);
-        allLeaguesList.setPreferredSize(new Dimension(700,400));
+        allLeaguesMenuSetUpLists();
         JScrollPane listScrollPane = new JScrollPane(allLeaguesList);
 
         allLeaguesMenu.add(title, gbc);
@@ -385,6 +429,20 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         allLeaguesMenu.add(buttonPanelAllLeagues(), gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: set up all leagues menu lists
+    private void allLeaguesMenuSetUpLists() {
+        listModelLeagueNames = makeListModelLeaguesName(allLeagues);
+        allLeaguesList = new JList(listModelLeagueNames);
+        allLeaguesList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        allLeaguesList.setSelectedIndex(0);
+        allLeaguesList.addListSelectionListener(this);
+        allLeaguesList.setVisibleRowCount(20);
+        allLeaguesList.setPreferredSize(new Dimension(700,400));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: makes a ListModel of leagues
     private DefaultListModel<String> makeListModelLeaguesName(ArrayList<League> leagues) {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (League league : leagues) {
@@ -393,6 +451,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         return listModel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds button panel to all leagues
     private JPanel buttonPanelAllLeagues() {
         JPanel buttonsPanel = new JPanel();
         JButton buttonBack;
@@ -419,6 +479,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         return buttonsPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: add field to league menu
     private void addLeagueField() {
         newName = new JTextField(10);
         newName.addActionListener(addLeagueListener);
@@ -426,6 +488,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         //String name = listModelLeagueNames.getElementAt(allLeaguesList.getSelectedIndex()).toString();
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes an all team menu
     private void allTeamsMenu() {
         allTeamsMenu.removeAll();
         allTeamsMenu.setLayout(new GridBagLayout());
@@ -442,6 +506,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         allTeamsMenu.add(buttonPanelAllTeams(), gbc);
     }
 
+    // MODIFIES: this
+    // EFFECTS: add buttons to all teams panel
     private JPanel buttonPanelAllTeams() { //removed adding functionality due to time restraints
         JPanel buttonsPanel = new JPanel();
         JButton buttonBack;
@@ -468,6 +534,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         return buttonsPanel;
     }
 
+    // MODIFIES: this
+    // EFFECTS: makes a ListModel of teams
     private DefaultListModel<String> makeListModelTeamsName(ArrayList<Team> teams) {
         DefaultListModel<String> listModel = new DefaultListModel<>();
         for (Team team : teams) {

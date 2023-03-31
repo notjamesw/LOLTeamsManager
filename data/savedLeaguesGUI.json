@@ -2,13 +2,13 @@
     {
         "teams": [
             {
-                "teamName": "G2",
+                "teamName": "VIT",
                 "subs": [],
                 "league": "LEC",
                 "starters": []
             },
             {
-                "teamName": "VIT",
+                "teamName": "G2",
                 "subs": [],
                 "league": "LEC",
                 "starters": []
@@ -21,7 +21,12 @@
         "name": "LCK"
     },
     {
-        "teams": [],
+        "teams": [{
+            "teamName": "100T",
+            "subs": [],
+            "league": "LCS",
+            "starters": []
+        }],
         "name": "LCS"
     }
 ]

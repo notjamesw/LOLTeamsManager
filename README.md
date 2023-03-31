@@ -56,3 +56,20 @@ and leagues from file.
 
 I used CPSC210 JsonSerializationDemo project as reference for my JsonReader and JsonWriter classes. It can be found at:
 https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.
+
+I used Java Oracle's ListDemo project as reference for my AddTeamListener and AddLeagueListener class. It can be found
+at: https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing
+/examples/components/ListDemoProject/src/components/ListDemo.java.
+
+## Instructions for Grader: 
+
+- You can generate the first required action related to adding Xs to a Y (Adding Teams to a league) by clicking on All 
+Leagues Menu button, then clicking on Adding a League after entering a league name in the field, and then clicking on 
+League Info button, then entering the name of the Team to add, then clicking the Add Team button. 
+- You can generate the second required action related to adding Xs to a Y (Removing Teams from a league) after adding
+teams in a league by accessing the League Menu, then selecting a team and then clicking remove.
+- You can locate my visual component in the Main Menu.
+- You can save the state of my application by clicking on the menu bar, then selecting the save option, and then
+following the instructions of the pop-up to save.
+- You can reload the state of my application by clicking on the menu bar, then selecting the load option, and then 
+following the instructions of the pop-up to load. 
