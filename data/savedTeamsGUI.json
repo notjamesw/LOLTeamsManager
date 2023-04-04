@@ -1,1 +1,56 @@
-[]
+[
+    {
+        "teamName": "G2",
+        "subs": [],
+        "league": "LEC",
+        "starters": []
+    },
+    {
+        "teamName": "VIT",
+        "subs": [],
+        "league": "LEC",
+        "starters": []
+    },
+    {
+        "teamName": "100T",
+        "subs": [],
+        "league": "LCS",
+        "starters": []
+    },
+    {
+        "teamName": "C9",
+        "subs": [],
+        "league": "LCS",
+        "starters": []
+    },
+    {
+        "teamName": "TL",
+        "subs": [],
+        "league": "LCS",
+        "starters": []
+    },
+    {
+        "teamName": "TSM",
+        "subs": [],
+        "league": "LCS",
+        "starters": []
+    },
+    {
+        "teamName": "EDG",
+        "subs": [],
+        "league": "LPL",
+        "starters": []
+    },
+    {
+        "teamName": "RNG",
+        "subs": [],
+        "league": "LPL",
+        "starters": []
+    },
+    {
+        "teamName": "T1",
+        "subs": [],
+        "league": "LCK",
+        "starters": []
+    }
+]

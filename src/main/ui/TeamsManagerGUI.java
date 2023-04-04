@@ -72,6 +72,10 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         this.leagueMenu = new JPanel();
         this.teamMenu = new JPanel();
         this.currentLeague = null;
+        this.buttonRemoveTeam = new JButton("Remove Team");
+        this.buttonSelectTeam = new JButton("Team Info");
+        this.allTeamsList = new JList();
+        this.allLeaguesList = new JList();
         gbc();
 
         this.mainMenu = new JPanel();
@@ -198,6 +202,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         if (size == 0) {
             buttonRemoveTeam.setEnabled(false);
         } else {
+            buttonRemoveTeam.setEnabled(true);
             Team team = currentLeague.getTeams().get(index);
             currentLeague.removeTeam(team);
             allTeams.remove(team);
@@ -228,6 +233,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         if (size == 0) {
             buttonSelectLeague.setEnabled(false);
         } else {
+            buttonSelectLeague.setEnabled(true);
             allMenus.show(contentPane, "League Menu");
             currentLeague = allLeagues.get(index);
             leagueMenu(currentLeague);
@@ -290,9 +296,9 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         buttonBack.setActionCommand("All Leagues");
         buttonAdd = new JButton("Create Team");
         buttonAdd.setActionCommand("Add Team");
-        buttonRemoveTeam = new JButton("Remove Team");
+        //buttonRemoveTeam = new JButton("Remove Team");
         buttonRemoveTeam.setActionCommand("Remove Team");
-        buttonSelectTeam = new JButton("Team Info");
+        //buttonSelectTeam = new JButton("Team Info");
         buttonSelectTeam.setActionCommand("Team Menu");
 
         addLeagueField();
@@ -399,10 +405,8 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             if (allLeaguesList.getSelectedIndex() == -1) {
-                //No selection, disable select button
                 buttonSelectLeague.setEnabled(false);
             } else {
-                //Selection, enable the select button
                 buttonSelectLeague.setEnabled(true);
             }
 
