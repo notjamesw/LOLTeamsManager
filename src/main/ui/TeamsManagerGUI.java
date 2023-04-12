@@ -20,8 +20,6 @@ import java.util.ArrayList;
 
 // Represents a LOL team manager application with GUI
 public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelectionListener, WindowListener {
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
     private static final Dimension winSize = new Dimension(800, 600);
     private static final Color brown = new Color(0xCE920F);
     private static final Color blue = new Color(0x122839);
@@ -51,7 +49,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
     private JList allLeaguesList;
     private JList allTeamsList;
 
-    // EFFECTS: runs the teams manager GUI application
+    // EFFECTS: runs the teams' manager GUI application
     public TeamsManagerGUI() {
         super("LOL Teams Manager");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -525,10 +523,6 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
 
         buttonBack = new JButton("Return to Main Menu");
         buttonBack.setActionCommand("Main Menu");
-        /*
-        buttonAdd = new JButton("Create Team");
-        buttonAdd.setActionCommand("Add Team NL");
-        */
 
         buttonSelectTeam = new JButton("Team Info");
         buttonSelectTeam.setActionCommand("Team Menu");
