@@ -34,6 +34,7 @@ public class League implements Writable {
     // EFFECTS: adds a team to the league
     public void addTeam(Team team) {
         teams.add(team);
+        EventLog.getInstance().logEvent(new Event("Added team " + team.getTeamName() + " to " + this.name));
     }
 
     // REQUIRES: teams is not empty, teams contains team
@@ -41,6 +42,7 @@ public class League implements Writable {
     // EFFECTS: remove a team from the league
     public void removeTeam(Team team) {
         teams.remove(team);
+        EventLog.getInstance().logEvent(new Event("Removed team " + team.getTeamName() + " from " + this.name));
     }
 
     // EFFECTS: returns true if there are no teams in the league and false if otherwise

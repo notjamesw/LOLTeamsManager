@@ -1,6 +1,7 @@
 package ui;
 
 import model.*;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -12,11 +13,13 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
 // Represents a LOL team manager application with GUI
-public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelectionListener {
+public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelectionListener, WindowListener {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private static final Dimension winSize = new Dimension(800, 600);
@@ -55,6 +58,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         setSize(winSize);
         setLocationRelativeTo(null);
         setResizable(false);
+        addWindowListener(this);
 
         init();
         runApp();
@@ -547,5 +551,42 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
             listModel.addElement(team.getTeamName());
         }
         return listModel;
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        System.out.println("Event Log:");
+        for (Event event: EventLog.getInstance()) {
+            System.out.println(event.toString());
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }
