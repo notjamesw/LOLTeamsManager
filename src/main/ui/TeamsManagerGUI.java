@@ -558,6 +558,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
 
     }
 
+    // EFFECTS: prints out event log
     @Override
     public void windowClosing(WindowEvent e) {
         System.out.println("Event Log:");

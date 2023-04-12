@@ -73,3 +73,32 @@ teams in a league by accessing the League Menu, then selecting a team and then c
 following the instructions of the pop-up to save.
 - You can reload the state of my application by clicking on the menu bar, then selecting the load option, and then 
 following the instructions of the pop-up to load. 
+
+## Phase 4: Task 2
+**Representative samples of the events that occur when my program runs and prints out to the console when the user
+quits the application:**
+
+Event Log:
+
+Wed Apr 12 15:16:03 PDT 2023
+
+Added team VIT to LEC
+
+Wed Apr 12 15:16:06 PDT 2023
+
+Added team 100T to LEC
+
+Wed Apr 12 15:16:09 PDT 2023
+
+Added team TSM to LEC
+
+Wed Apr 12 15:16:14 PDT 2023
+
+Removed team 100T from LEC
+
+Wed Apr 12 15:16:23 PDT 2023
+
+Added team C9 to LEC
+
+
+Where, LEC represents a league (Y), and teams (X) are added and removed from the league.
