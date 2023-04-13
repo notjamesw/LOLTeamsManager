@@ -102,3 +102,15 @@ Added team C9 to LEC
 
 
 Where, LEC represents a league (Y), and teams (X) are added and removed from the league.
+
+## Phase 4: Task 3
+
+One majoring refactoring I would change is to improve the Single Responsibility Principle by splitting up the 
+TeamsManagerConsole and TeamsManagerGUI classes. Currently, both the TeamsManagerConsole class and the TeamsManagerGUI 
+class manages all the menus as well as actions related to those menus, thereby breaking the single responsibility 
+principle. 
+
+One way I would refactor the TeamsManagerConsole class is to split it into 2 classes, one for managing user inputs 
+from the console and the other for displaying menus to the console. One way I would refactor the TeamsManagerGUI class
+is to add new classes or subclasses that implement ActionListener, ListSelectionListener, and WindowListener instead of 
+the GUI class being the sole listener. 
