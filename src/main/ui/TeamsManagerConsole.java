@@ -9,13 +9,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 // Represents a console based LOL team manager application
-public class TeamsManager {
+public class TeamsManagerConsole {
     private ArrayList<Team> allTeams;     // list of all teams
     private ArrayList<League> allLeagues; // list of all leagues
     private Scanner input;
+    private JsonWriter writer;
+    private JsonReader reader;
 
-    // EFFECTS: runs the teams manager application
-    public TeamsManager() {
+    // EFFECTS: runs the teams' manager application
+    public TeamsManagerConsole() {
         runApp();
     }
 
@@ -65,7 +67,7 @@ public class TeamsManager {
         System.out.println("To confirm, enter 'y'.");
         String confirm = input.next();
         if (confirm.equals("y")) {
-            JsonReader reader = new JsonReader("./data/savedLeagues.json", "./data/savedTeams.json");
+            reader = new JsonReader("./data/savedLeagues.json", "./data/savedTeams.json");
             try {
                 allLeagues = reader.readLeagues();
                 allTeams = reader.readTeams();
@@ -88,7 +90,7 @@ public class TeamsManager {
         String confirm = input.next();
         if (confirm.equals("y")) {
             try {
-                JsonWriter writer = new JsonWriter("./data/savedLeagues.json", "./data/savedTeams.json");
+                writer = new JsonWriter("./data/savedLeagues.json", "./data/savedTeams.json");
                 writer.open();
                 writer.writeLeagues(allLeagues);
                 writer.writeTeams(allTeams);

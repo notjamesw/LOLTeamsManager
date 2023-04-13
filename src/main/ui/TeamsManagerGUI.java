@@ -29,6 +29,7 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
     private ArrayList<League> allLeagues; // list of all leagues
     private League currentLeague;
 
+    private PopUpMessage message;
     private JPanel mainMenu;
     private Container contentPane;
     private CardLayout allMenus;
@@ -361,7 +362,6 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
     private void loadFiles() {
         int answer = JOptionPane.showConfirmDialog(null, "Load Save Files?",
                 "Load", JOptionPane.YES_NO_OPTION);
-        PopUpMessage message;
 
         if (answer == JOptionPane.YES_OPTION) {
             // for testing
@@ -385,7 +385,6 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
     private void saveFiles() {
         int answer = JOptionPane.showConfirmDialog(null, "Save to Files?",
                 "Save", JOptionPane.YES_NO_OPTION);
-        PopUpMessage message;
 
         if (answer == JOptionPane.YES_OPTION) {
             try {
@@ -492,7 +491,6 @@ public class TeamsManagerGUI extends JFrame implements ActionListener, ListSelec
         newName = new JTextField(10);
         newName.addActionListener(addLeagueListener);
         newName.getDocument().addDocumentListener(addLeagueListener);
-        //String name = listModelLeagueNames.getElementAt(allLeaguesList.getSelectedIndex()).toString();
     }
 
     // MODIFIES: this
