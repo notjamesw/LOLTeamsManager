@@ -1,4 +1,4 @@
-# CS210 Personal Project
+# Personal Project
 ## *LOL Teams Managing Tool*
 
 ## Introduction
